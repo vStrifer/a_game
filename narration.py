@@ -24,7 +24,8 @@ scenes = {
             'a1': "You attack!"
         },
         'enemy': {
-            'a1': "You got hit, ouch!"
+            'a1': "You got hit, ouch!",
+            'a2': "You got crit. Oh no!"
         }
     }
 }
