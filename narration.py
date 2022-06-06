@@ -3,8 +3,8 @@ scenes = {
     'rooms': {
         'introduction': {
             's1':
-""" \t\tThis is the introduction,
-\t\tWow, it certainly is something\n""",
+                """ This is the introduction,
+                    Wow, it certainly is something\n""",
             's2': """ This is another introduction,
                     It too has multiple lines"""
         },
