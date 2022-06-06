@@ -1,3 +1,4 @@
+# TODO: Add status effects, sanity & fatigue.
 class Character(object):
 
     def __init__(self, name, hp):

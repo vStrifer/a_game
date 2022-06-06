@@ -1,28 +1,28 @@
-import json
 import narration
 import scenes
 import character
 
 class Engine(object):
-    # stores scene_map(a map object) in self.scene_map
+
     def __init__(self, scene_map):
         self.scene_map = scene_map
 
-    # stores the return value from the opening_scene method from the
-    # scene_map(a map object) in current_scene
+    # starts the 'introduction' and plays until current_scene == 'escape'
     def play(self):
         current_scene = self.scene_map.opening_scene()
         last_scene = self.scene_map.next_scene('escape')
 
+        # while current_scene != 'escape' set current_scene as next_scene
         while current_scene != last_scene:
             next_scene_name = current_scene.enter()
             current_scene = self.scene_map.next_scene(next_scene_name)
 
-        # enters the current scene from the scene map object
         current_scene.enter()
 
 class Map(object):
-    # scenes avaliable on the map
+
+    # scenes avaliable on the map, return values get mapped to next_scene
+    # which in turn is the name of the scene class to be called.
     scenes = {
         'introduction': scenes.Introduction(),
         'cell': scenes.Cell(),
@@ -31,12 +31,10 @@ class Map(object):
         'fight': scenes.Fight()
     }
 
-    # stores the passed scene in start_scene
     def __init__(self, start_scene):
         self.start_scene = start_scene
 
     # returns the scene corresponding to the start_scene variable
-    # via the get() function
     def next_scene(self, scene_name):
         scene = self.scenes.get(scene_name)
         return scene
@@ -44,8 +42,7 @@ class Map(object):
     def opening_scene(self):
         return self.next_scene(self.start_scene)
 
-# creates a_map, Passes the introduction variable to the created object
+# Starts the game, first scene to be played is 'introduction'
 a_map = Map('introduction')
-# creates a_game object, passes the a_map object to the Engine class
 a_game = Engine(a_map)
 a_game.play()

@@ -1,5 +1,4 @@
 import narration
-#import character
 import global_
 
 class Combat(object):

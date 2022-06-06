@@ -3,6 +3,7 @@ import character
 import combat
 import global_
 
+# TODO: Add scene status effects. EX: Freezing = True
 class Scene(object):
     # will do stuff later, pass for now
     def enter(self):
@@ -16,7 +17,6 @@ class Introduction(Scene):
         print(narration.scenes['rooms'][self.room_name]['s1'])
         return 'cell'
 
-# each of the 'rooms' will most likely have to be their own file for organization
 class Cell(Scene):
     def __init__(self):
         self.room_name = 'cell'
@@ -52,6 +52,10 @@ class Death(Scene):
         print(narration.scenes['rooms'][self.room_name]['s1'])
         exit(1)
 
+# TODO: Make more generic, or remove completely putting the print statement
+# as part of the parent scene, then pass in enemy. Checks of player status
+# should probably be an event (global based on time?)
+
 class Fight(Scene):
     def __init__(self):
         self.room_name = 'fight'
@@ -60,6 +64,9 @@ class Fight(Scene):
         print(narration.scenes['rooms'][self.room_name]['s1'])
 
         gru = character.Character('Gru', 50)
+        # TODO: Clean up this call?
+        # Pass in victory condition text as part of the function call to make
+        # it more generic. Text can be fetched from narration.
         combat.Combat.combat(self, gru)
 
         if global_.player.get_hp() <= 0:
