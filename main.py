@@ -48,7 +48,7 @@ class Introduction(Scene):
         self.room_name = 'introduction'
 
     def enter(self):
-        print(narration.scenes["rooms"][self.room_name]['s1'])
+        print(narration.scenes['rooms'][self.room_name]['s1'])
         return 'cell'
 
 # each of the 'rooms' will most likely have to be their own file for organization
@@ -57,13 +57,13 @@ class Cell(Scene):
         self.room_name = 'cell'
 
     def enter(self):
-        print(narration.scenes["rooms"][self.room_name]['s1'])
+        print(narration.scenes['rooms'][self.room_name]['s1'])
 
         print("Left or Right?")
         print("1. Left")
         print("2. Right")
 
-        player_input = input("> ")
+        player_input = input('> ')
 
         if player_input == '1':
             return 'escape'
@@ -76,7 +76,7 @@ class Escape(Scene):
         self.room_name = 'escape'
 
     def enter(self):
-        print(narration.scenes["rooms"][self.room_name]['s1'])
+        print(narration.scenes['rooms'][self.room_name]['s1'])
         exit(1)
 
 class Death(Scene):
@@ -84,7 +84,7 @@ class Death(Scene):
         self.room_name = 'death'
 
     def enter(self):
-        print(narration.scenes["rooms"][self.room_name]['s1'])
+        print(narration.scenes['rooms'][self.room_name]['s1'])
         exit(1)
 
 class Fight(Scene):
@@ -92,16 +92,18 @@ class Fight(Scene):
         self.room_name = 'fight'
 
     def enter(self):
-        print(narration.scenes["rooms"][self.room_name]['s1'])
+        print(narration.scenes['rooms'][self.room_name]['s1'])
 
-        gru = Character("Gru", 50)
-        self.combat(gru)
+        gru = Character('Gru', 50)
+        Combat.combat(self, gru)
 
         if player.get_hp() <= 0:
             return 'death'
 
         if gru.get_hp() <= 0:
             return 'escape'
+
+class Combat(object):
 
     def combat(self, enemy):
 
@@ -111,7 +113,7 @@ class Fight(Scene):
 
         while player.get_hp() > 0 and enemy.get_hp() > 0:
 
-            player_input = input("> ")
+            player_input = input('> ')
 
             if player_input == '1':
                 print(narration.scenes['rooms']['player']['a1'])
@@ -119,6 +121,7 @@ class Fight(Scene):
             else:
                 print(narration.scenes['rooms']['enemy']['a1'])
                 player.reduce_hp(20)
+
 
 class Map(object):
     # scenes avaliable on the map
@@ -143,7 +146,7 @@ class Map(object):
     def opening_scene(self):
         return self.next_scene(self.start_scene)
 
-player = Character("Strifer", 100)
+player = Character('Strifer', 100)
 
 # creates a_map, Passes the introduction variable to the created object
 a_map = Map('introduction')

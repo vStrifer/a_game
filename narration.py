@@ -15,7 +15,7 @@ scenes = {
             's1': "You escaped. Good job!"
         },
         'death': {
-            's1': "You got eaten by a gru!"
+            's1': "You died! :("
         },
         'fight': {
             's1': "You're being attacked by a gru!"
