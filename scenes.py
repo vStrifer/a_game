@@ -4,6 +4,9 @@ import combat
 import global_
 import datetime as dt
 
+
+# TODO: Pull out and put as its own 'thing' just as character?
+
 class Scene(object):
     # add more status effects as necesary.
     def __init__(self):
