@@ -2,19 +2,34 @@ import narration
 import character
 import combat
 import global_
+import datetime as dt
 
-# TODO: Add scene status effects. EX: Freezing = True
 class Scene(object):
-    # will do stuff later, pass for now
+    # add more status effects as necesary.
+    def __init__(self):
+        self.freezing = None
+        self.burning = None
+        self.toxic = None
+
     def enter(self):
         pass
+
+    def forward_time(hours, minutes, seconds):
+        time_to_add = dt.timedelta(hours = hours, minutes = minutes,
+                                    seconds = seconds)
+        global_.world_time = global_.world_time + time_to_add
+
+        print(global_.world_time)
+
 
 class Introduction(Scene):
     def __init__(self):
         self.room_name = 'introduction'
 
     def enter(self):
+        self.freezing = True
         print(narration.scenes['rooms'][self.room_name]['s1'])
+        print(f"The room is freezing?: {self.freezing}")
         return 'cell'
 
 class Cell(Scene):
@@ -23,6 +38,8 @@ class Cell(Scene):
 
     def enter(self):
         print(narration.scenes['rooms'][self.room_name]['s1'])
+
+        Scene.forward_time(2, 30, 0)
 
         print("Left or Right?")
         print("1. Left")
@@ -62,6 +79,13 @@ class Fight(Scene):
 
     def enter(self):
         print(narration.scenes['rooms'][self.room_name]['s1'])
+
+        Scene.forward_time(10, 0, 0)
+
+        # container test
+        print(f"You find a Knife!")
+        global_.player.items.append("Knife")
+        print(global_.player.items)
 
         gru = character.Character('Gru', 50)
         # TODO: Clean up this call?
