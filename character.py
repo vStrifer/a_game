@@ -1,9 +1,12 @@
-# TODO: Add status effects, sanity & fatigue.
 class Character(object):
 
     def __init__(self, name, hp):
         self.name = name
         self.hp = hp
+        self.sanity = None
+        self.bleeding = None
+
+        self.items = []
 
     def add_hp(self, change_in_hp):
         self.hp = self.hp + change_in_hp
