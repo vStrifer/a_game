@@ -3,7 +3,7 @@ import global_
 
 class Combat(object):
 
-    def combat(self, enemy):
+    def attack_flee(self, enemy):
 
         print("Attack or Flee?")
         print("1. Attack")

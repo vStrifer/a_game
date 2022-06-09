@@ -1,5 +1,5 @@
 class Character(object):
-
+    # TODO: Handle status effects 
     def __init__(self, name, hp):
         self.name = name
         self.hp = hp

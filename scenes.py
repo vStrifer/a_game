@@ -1,6 +1,6 @@
 import narration
 import character
-import combat
+import action
 import global_
 import datetime as dt
 
@@ -13,6 +13,8 @@ class Scene(object):
         self.freezing = None
         self.burning = None
         self.toxic = None
+
+        self.container = []
 
     def enter(self):
         pass
@@ -94,7 +96,7 @@ class Fight(Scene):
         # TODO: Clean up this call?
         # Pass in victory condition text as part of the function call to make
         # it more generic. Text can be fetched from narration.
-        combat.Combat.combat(self, gru)
+        action.Combat.attack_flee(self, gru)
 
         if global_.player.get_hp() <= 0:
             return 'death'
