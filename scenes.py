@@ -4,9 +4,6 @@ import action
 import global_
 import datetime as dt
 
-
-# TODO: Pull out and put as its own 'thing' just as character?
-
 class Scene(object):
     # add more status effects as necesary.
     def __init__(self):
@@ -22,6 +19,7 @@ class Scene(object):
     def forward_time(hours, minutes, seconds):
         time_to_add = dt.timedelta(hours = hours, minutes = minutes,
                                     seconds = seconds)
+
         global_.world_time = global_.world_time + time_to_add
 
         print(global_.world_time)
@@ -33,8 +31,8 @@ class Introduction(Scene):
 
     def enter(self):
         self.freezing = True
-        print(narration.scenes['rooms'][self.room_name]['s1'])
         print(f"The room is freezing?: {self.freezing}")
+        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
         return 'cell'
 
 class Cell(Scene):
@@ -42,7 +40,7 @@ class Cell(Scene):
         self.room_name = 'cell'
 
     def enter(self):
-        print(narration.scenes['rooms'][self.room_name]['s1'])
+        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
 
         Scene.forward_time(2, 30, 0)
 
@@ -63,7 +61,7 @@ class Escape(Scene):
         self.room_name = 'escape'
 
     def enter(self):
-        print(narration.scenes['rooms'][self.room_name]['s1'])
+        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
         exit(1)
 
 class Death(Scene):
@@ -71,7 +69,7 @@ class Death(Scene):
         self.room_name = 'death'
 
     def enter(self):
-        print(narration.scenes['rooms'][self.room_name]['s1'])
+        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
         exit(1)
 
 # TODO: Make more generic, or remove completely putting the print statement
@@ -83,7 +81,7 @@ class Fight(Scene):
         self.room_name = 'fight'
 
     def enter(self):
-        print(narration.scenes['rooms'][self.room_name]['s1'])
+        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
 
         Scene.forward_time(10, 0, 0)
 
