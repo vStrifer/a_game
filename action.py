@@ -1,4 +1,3 @@
-import narration
 import global_
 
 class Combat(object):
@@ -14,8 +13,8 @@ class Combat(object):
             player_input = input('> ')
 
             if player_input == '1':
-                print(narration.scenes['rooms']['player']['a1'])
+                print(global_.narrator['scenes']['rooms']['player']['a1'])
                 enemy.reduce_hp(20)
             else:
-                print(narration.scenes['rooms']['enemy']['a1'])
+                print(global_.narrator['scenes']['rooms']['enemy']['a1'])
                 global_.player.reduce_hp(20)

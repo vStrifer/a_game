@@ -1,8 +1,8 @@
-import narration
 import character
 import action
 import global_
 import datetime as dt
+import yaml
 
 class Scene(object):
     # add more status effects as necesary.
@@ -21,9 +21,6 @@ class Scene(object):
                                     seconds = seconds)
 
         global_.world_time = global_.world_time + time_to_add
-
-        print(global_.world_time)
-
 
 class Introduction(Scene):
     def __init__(self):
@@ -53,12 +50,12 @@ class Cell(Scene):
         if player_input == '1':
             return 'escape'
         else:
-            return 'fight'
+            return Fight.set_up(self, 's1', 'Gru', 50, 's2', 'v1')
 
 
 class Escape(Scene):
     def __init__(self):
-        self.room_name = 'escape'
+        self.room_name = 'escape'S
 
     def enter(self):
         print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
@@ -72,32 +69,27 @@ class Death(Scene):
         print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
         exit(1)
 
-# TODO: Make more generic, or remove completely putting the print statement
-# as part of the parent scene, then pass in enemy. Checks of player status
-# should probably be an event (global based on time?)
-
 class Fight(Scene):
     def __init__(self):
-        self.room_name = 'fight'
+        pass
 
-    def enter(self):
-        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
+    def set_up(self, scene, enemy, hp, defeat, victory):
+        self.fight_scene = scene
+        self.defeat_scene = defeat
+        self.victory_scene = victory
+
+        print(global_.narrator['scenes']['rooms']['fight'][self.fight_scene])
 
         Scene.forward_time(10, 0, 0)
 
-        # container test
-        print(f"You find a Knife!")
-        global_.player.items.append("Knife")
-        print(global_.player.items)
+        enemy = character.Character(enemy, hp)
 
-        gru = character.Character('Gru', 50)
-        # TODO: Clean up this call?
-        # Pass in victory condition text as part of the function call to make
-        # it more generic. Text can be fetched from narration.
-        action.Combat.attack_flee(self, gru)
+        action.Combat.attack_flee(self, enemy)
 
         if global_.player.get_hp() <= 0:
+            print(global_.narrator['scenes']['rooms']['death'][self.defeat_scene])
             return 'death'
 
-        if gru.get_hp() <= 0:
+        if enemy.get_hp() <= 0:
+            print(global_.narrator['scenes']['rooms']['fight'][self.victory_scene])
             return 'escape'
