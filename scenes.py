@@ -3,6 +3,7 @@ import action
 import global_
 import datetime as dt
 import yaml
+from yaml.loader import BaseLoader
 
 class Scene(object):
     # add more status effects as necesary.
@@ -10,7 +11,6 @@ class Scene(object):
         self.freezing = None
         self.burning = None
         self.toxic = None
-
         self.container = []
 
     def enter(self):
@@ -27,8 +27,6 @@ class Introduction(Scene):
         self.room_name = 'introduction'
 
     def enter(self):
-        self.freezing = True
-        print(f"The room is freezing?: {self.freezing}")
         print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
         return 'cell'
 
@@ -50,12 +48,12 @@ class Cell(Scene):
         if player_input == '1':
             return 'escape'
         else:
-            return Fight.set_up(self, 's1', 'Gru', 50, 's2', 'v1')
+            return Fight.set_up(self, 's1', 'Gru', 50, 'd2', 'v1')
 
 
 class Escape(Scene):
     def __init__(self):
-        self.room_name = 'escape'S
+        self.room_name = 'escape'
 
     def enter(self):
         print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
@@ -66,7 +64,7 @@ class Death(Scene):
         self.room_name = 'death'
 
     def enter(self):
-        print(global_.narrator['scenes']['rooms'][self.room_name]['s1'])
+        print(global_.narrator['scenes']['rooms'][self.room_name]['d1'])
         exit(1)
 
 class Fight(Scene):

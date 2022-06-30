@@ -1,4 +1,6 @@
 import yaml
+from yaml.loader import SafeLoader
+
 
 class Character(object):
     # TODO: Handle status effects
@@ -21,3 +23,11 @@ class Character(object):
 
     def get_hp(self):
         return self.hp
+
+class Monster:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+    def __repr__(self):
+        return ("%s(name=%r, hp=%r)" % (
+        self.__class__.__name__, self.name, self.hp))
